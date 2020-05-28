@@ -1,0 +1,32 @@
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: {{ .Release.Name }}
+# spec:
+#   template:
+#     metadata:
+#       name: {{ .Release.Name }}
+#     spec:
+#       restartPolicy: Never
+#       containers:
+#       - name: post-install-job
+#         image: "alpine:3.3\="
+#         command: ["/bin/sleep","{{default "10" .Values.sleepyTime}}"]
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}-pod
+spec:
+  containers:
+    - name: {{ .Release.Name }}-container
+      image: brendarearden/istio-test:1.2.1
+      volumeMounts:
+      - name: config-volume
+        mountPath: /app/config.yaml
+        subPath: istio-base.yaml
+  volumes:
+    - name: config-volume
+      configMap:
+        name: {{ .Release.Name }}-configmap
+  restartPolicy: Never
+  serviceAccountName: {{ .Release.Name }}-serviceaccount
