@@ -6,53 +6,92 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - endpoints
   - namespaces
-  - nodes
-  - pods
-  - secrets
-  - services
-  - clusterrolebinding
-  - clusterrole
   verbs:
-  - list
-  - watch
+  - "create"
 - apiGroups:
   - ""
-  resourceNames:
-  - istio
   resources:
+  - services
   - configmaps
-  verbs:
-  - get
-- apiGroups:
-  - apiextensions.k8s.io
-  resources:
-  - customresourcedefinitions
+  - persistentvolumeclaims
+  - pods
+  - secrets
+  - serviceaccounts
   verbs:
   - list
-  - watch
+  - get
+  - create
+  - update
 - apiGroups:
-  - apps
+  - "apps"
   resources:
   - deployments
   verbs:
-  - list
-  - watch
+  - get
+  - list 
+  - create
+  - update
 - apiGroups:
-  - extensions
+  - "apps"
   resources:
-  - ingresses
+  - daemonsets
+  - replicasets
   verbs:
   - list
-  - watch
 - apiGroups:
-  - authentication.istio.io
-  - config.istio.io
-  - networking.istio.io
-  - rbac.istio.io
-  - security.istio.io
+  - "policy"
   resources:
-  - '*'
+  - poddisruptionbudgets
+  verbs:
+  - list
+- apiGroups:
+  - "autoscaling"
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - list
+- apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - rolebindings
+  - roles
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - "*"
+- apiGroups:
+  - "admissionregistration.k8s.io"
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs:
+  - list
+  - patch 
+- apiGroups:
+  - "apiextensions.k8s.io"
+  resources:
+  - validatingwebhookconfigurations
+  verbs:
+  - get
+- apiGroups:
+  - "apiextensions.k8s.io"
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - "*"
+- apiGroups:
+  - "networking.istio.io"
+  resources:
+  - destinationrules
+  - envoyfilters
+  - gateways
+  - virtualservices
+  verbs:
+  - list
+- apiGroups:
+  - "security.istio.io"
+  resources:
+  - peerauthentications
   verbs:
   - list

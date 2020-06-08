@@ -27,3 +27,4 @@ subjects:
 - namespace: {{ .Release.Namespace }}
   kind: ServiceAccount
   name: {{ .Release.Name }}-serviceaccount
+
