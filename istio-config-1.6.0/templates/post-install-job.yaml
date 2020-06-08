@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-container
-          image: brendarearden/istio-test:1.3.7
+          image: brendarearden/istio-test:1.4.1
           command: ["/bin/sh","-c"]
           args: ["./usr/local/app/scripts/run.sh"]
           volumeMounts:
