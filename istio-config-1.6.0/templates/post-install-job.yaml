@@ -9,15 +9,21 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-container
-          image: brendarearden/istio-test:1.4.1
+          image: brendarearden/istio-test:1.4.2
           command: ["/bin/sh","-c"]
           args: ["./usr/local/app/scripts/run.sh"]
           volumeMounts:
           - name: config-volume
             mountPath: /app/config.yaml
             subPath: istio-base.yaml
+          - name: overlay-volume
+            mountPath: /app/overlay.yaml
+            subPath: overlay-test.yaml
       volumes:
         - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-configmap
+        - name: overlay-volume
           configMap:
             name: {{ .Release.Name }}-configmap
       serviceAccountName: {{ .Release.Name }}-serviceaccount
