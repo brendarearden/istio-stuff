@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ENV ISTIO_VERSION 1.6.0
+ENV ISTIO_VERSION 1.6.1
 
 RUN apk update && apk add curl bash coreutils
 RUN curl -L https://istio.io/downloadIstio | sh -
@@ -10,4 +10,4 @@ RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
 COPY scripts /usr/local/app/scripts/
 RUN chmod +x /usr/local/app/scripts/init_kubeconfig.sh /usr/local/app/scripts/run.sh /usr/local/app/scripts/create_istio_system.sh
-CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+ENTRYPOINT [ "/usr/local/app/scripts/run.sh" ]

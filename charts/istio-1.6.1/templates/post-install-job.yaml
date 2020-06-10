@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-pod
+  namespace: {{ .Release.Namespace }}
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-container
+          image: brendarearden/istio-test:1.5.2
+          env:
+            - name: revisionName
+              value: {{ .Release.Name }}-revision
+          command: ["/bin/sh","-c"]
+          args: ["./usr/local/app/scripts/run.sh"]
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config.yaml
+            subPath: istio-base.yaml
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-configmap
+      serviceAccountName: {{ .Release.Name }}-serviceaccount
+      restartPolicy: Never

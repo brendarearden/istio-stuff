@@ -7,20 +7,20 @@ echo "
 apiVersion: v1
 kind: Config
 clusters:
-- name: default-cluster
+- name: ${releaseName}-cluster
   cluster:
     certificate-authority-data: ${ca}
     server: ${server}
 contexts:
-- name: default-context
+- name: ${releaseName}-context
   context:
-    cluster: default-cluster
+    cluster: ${releaseName}-cluster
     namespace: istio-system
-    user: default-user
+    user: ${releaseName}-user
 current-context: default-context
 users:
-- name: default-user
+- name: ${releaseName}-user
   user:
     token: ${token}
 " > sa.kubeconfig
-kubectl config --kubeconfig=sa.kubeconfig use-context default-context 
+kubectl config --kubeconfig=sa.kubeconfig use-context ${releaseName}-context 

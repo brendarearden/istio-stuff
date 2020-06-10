@@ -9,7 +9,12 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-container
-          image: brendarearden/istio-test:1.4.1
+          image: brendarearden/istio-test:1.4.5
+          env:
+          - name: revisionName
+            value: {{ .Release.Name }}-revision
+          - name: releaseName
+            value: {{ .Release.Name }}
           command: ["/bin/sh","-c"]
           args: ["./usr/local/app/scripts/run.sh"]
           volumeMounts:

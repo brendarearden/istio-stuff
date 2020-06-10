@@ -2,7 +2,7 @@ apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
   labels:
-    istio.io/rev: canary
+    revision: update-1.6.1
 spec:
   addonComponents:
     grafana:
@@ -163,7 +163,7 @@ spec:
   meshConfig:
     enablePrometheusMerge: false
   profile: minimal
-  tag: 1.6.0
+  tag: 1.6.1
   values:
     base:
       validationURL: ""
