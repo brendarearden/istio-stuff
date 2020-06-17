@@ -1,7 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ .Release.Name }}-istioctl
+  creationTimestamp: null
+  name: istio-operator
 rules:
 # istio groups
 - apiGroups:
@@ -24,6 +25,12 @@ rules:
   - '*'
 - apiGroups:
   - networking.istio.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - rbac.istio.io
   resources:
   - '*'
   verbs:

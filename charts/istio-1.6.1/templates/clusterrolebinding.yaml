@@ -1,12 +1,12 @@
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ .Release.Name }}-istioctl
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name:  {{ .Release.Name }}-istioctl
+  name: {{ .Release.Name }}-operator
 subjects:
 - kind: ServiceAccount
   name: {{ .Release.Name }}-serviceaccount
   namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ .Release.Name }}-operator
+  apiGroup: rbac.authorization.k8s.io
