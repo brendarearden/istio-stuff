@@ -34,7 +34,7 @@ spec:
     cni:
       enabled: false
     egressGateways:
-    - enabled: false
+    - enabled: {{ .Values.egressGatewaysEnabled }}
       k8s:
         env:
         - name: ISTIO_META_ROUTER_MODE
@@ -65,7 +65,7 @@ spec:
           - name: https
             port: 443
           - name: tls
-            port: 15443
+            port: 15443 
             targetPort: 15443
         strategy:
           rollingUpdate:
@@ -73,7 +73,7 @@ spec:
             maxUnavailable: 25%
       name: istio-egressgateway
     istiodRemote:
-      enabled: {{ .Values.egressGatewaysEnabled }}
+      enabled: false
     pilot:
       enabled: true
       k8s:

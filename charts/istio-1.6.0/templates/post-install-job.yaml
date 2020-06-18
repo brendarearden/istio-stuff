@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-container
-          image: brendarearden/istio-test:1.4.7
+          image: brendarearden/istio-test:1.4.6
           env:
           - name: RELEASE_NAME
             value: {{ .Release.Name }}
